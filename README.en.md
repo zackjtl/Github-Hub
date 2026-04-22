@@ -57,18 +57,20 @@ Click **[Use this template](../../generate)** at the top of the GitHub page → 
 
 > Or fork / clone manually if you prefer.
 
-### 2. Enable GitHub Pages
+### 2. Enable GitHub Pages (**do this before the next step**)
 
 In your new repo:
 
 1. Go to **Settings → Pages**
 2. Under **Build and deployment → Source**, choose **GitHub Actions**
 
+> ⚠️ If you used "Use this template", the first deployment can fire before you've enabled Pages and will fail with `Failed to create deployment (status: 404) ... Ensure GitHub Pages has been enabled`. After enabling Pages above, go to the **Actions** tab, open the failed run, and click **Re-run all jobs** — it will succeed.
+
 ### 3. Trigger the deployment
 
 The included GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) builds and deploys automatically on every push to `main`.
 
-- If you used "Use this template", the first push already happened — go to the **Actions** tab and watch it run.
+- If you used "Use this template", the first push already happened — go to the **Actions** tab to see the result (remember to enable Pages first, then Re-run).
 - If nothing is running, push any small change, or open the workflow on the Actions tab and click **Run workflow**.
 
 After ~1–2 minutes, your site is live at:
