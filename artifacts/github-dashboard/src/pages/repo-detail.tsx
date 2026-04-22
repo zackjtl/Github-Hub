@@ -15,8 +15,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
   Star, GitFork, Lock, Globe, ExternalLink, Activity, 
-  BookOpen, Users, GitCommit, AlertCircle, CircleDot 
+  BookOpen, Users, GitCommit, AlertCircle, CircleDot, FileText
 } from "lucide-react";
+import { RepoNotes } from "@/components/repo-notes";
 import { formatDistanceToNow, format } from "date-fns";
 import { getLanguageColor } from "@/lib/language-colors";
 import ReactMarkdown from "react-markdown";
@@ -148,6 +149,9 @@ export function RepoDetail() {
               <TabsTrigger value="commits" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary flex-1 sm:flex-none">
                 <GitCommit className="w-4 h-4 mr-2" /> Commits
               </TabsTrigger>
+              <TabsTrigger value="notes" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary flex-1 sm:flex-none">
+                <FileText className="w-4 h-4 mr-2" /> Notes
+              </TabsTrigger>
             </TabsList>
             
             <TabsContent value="readme" className="m-0 focus-visible:outline-none">
@@ -230,6 +234,10 @@ export function RepoDetail() {
                   )}
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="notes" className="m-0 focus-visible:outline-none">
+              <RepoNotes owner={owner} repo={repoName} />
             </TabsContent>
           </Tabs>
         </div>

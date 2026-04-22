@@ -94,7 +94,7 @@ export function SetupScreen() {
                 data-testid="input-token"
               />
               <p className="text-[10px] text-muted-foreground leading-relaxed mt-2">
-                Requires <span className="font-mono text-foreground bg-muted px-1 py-0.5 rounded">repo</span> and <span className="font-mono text-foreground bg-muted px-1 py-0.5 rounded">user</span> scopes. Token is stored locally in your browser.
+                Requires <span className="font-mono text-foreground bg-muted px-1 py-0.5 rounded">repo</span>, <span className="font-mono text-foreground bg-muted px-1 py-0.5 rounded">user</span>, and <span className="font-mono text-foreground bg-muted px-1 py-0.5 rounded">gist</span> scopes. Token is stored locally in your browser.
               </p>
             </div>
           </CardContent>
