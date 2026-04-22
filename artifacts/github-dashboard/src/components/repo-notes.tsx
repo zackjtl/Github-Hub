@@ -24,7 +24,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useRepoNotes, type RepoNote } from "@/hooks/use-repo-notes";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, FileText, ExternalLink, AlertCircle } from "lucide-react";
+import { Plus, Pencil, Trash2, FileText, ExternalLink, AlertCircle, Eye, Columns2, Edit3 } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { formatDistanceToNow } from "date-fns";
@@ -48,6 +49,7 @@ export function RepoNotes({ owner, repo }: RepoNotesProps) {
   const [confirmDelete, setConfirmDelete] = useState<RepoNote | null>(null);
   const [draftTitle, setDraftTitle] = useState("");
   const [draftContent, setDraftContent] = useState("");
+  const [viewMode, setViewMode] = useState<"edit" | "split" | "preview">("split");
 
   const activeNote = notes.find((n) => n.id === activeId) || notes[0] || null;
 
@@ -229,29 +231,85 @@ export function RepoNotes({ owner, repo }: RepoNotesProps) {
 
       {/* Editor dialog */}
       <Dialog open={editor.mode !== "closed"} onOpenChange={(o) => !o && closeEditor()}>
-        <DialogContent className="max-w-3xl">
-          <DialogHeader>
+        <DialogContent className="max-w-[95vw] w-[95vw] sm:max-w-[1200px] h-[90vh] flex flex-col gap-3 p-4 sm:p-6">
+          <DialogHeader className="shrink-0">
             <DialogTitle>{editor.mode === "edit" ? "Edit Note" : "New Note"}</DialogTitle>
             <DialogDescription>
               Markdown is supported. Notes sync to your private GitHub Gist.
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-3">
+
+          <div className="flex flex-col sm:flex-row gap-2 shrink-0">
             <Input
               placeholder="Note title"
               value={draftTitle}
               onChange={(e) => setDraftTitle(e.target.value)}
+              className="flex-1"
               data-testid="input-note-title"
             />
-            <Textarea
-              placeholder="Write in Markdown..."
-              value={draftContent}
-              onChange={(e) => setDraftContent(e.target.value)}
-              className="min-h-[320px] font-mono text-sm"
-              data-testid="textarea-note-content"
-            />
+            <ToggleGroup
+              type="single"
+              value={viewMode}
+              onValueChange={(v) => v && setViewMode(v as typeof viewMode)}
+              className="bg-muted/30 rounded-md p-0.5 border border-border/50"
+            >
+              <ToggleGroupItem value="edit" size="sm" className="h-8 px-3 data-[state=on]:bg-primary/15 data-[state=on]:text-primary" title="Editor only">
+                <Edit3 className="w-3.5 h-3.5 sm:mr-1.5" />
+                <span className="hidden sm:inline">Edit</span>
+              </ToggleGroupItem>
+              <ToggleGroupItem value="split" size="sm" className="h-8 px-3 data-[state=on]:bg-primary/15 data-[state=on]:text-primary" title="Split view">
+                <Columns2 className="w-3.5 h-3.5 sm:mr-1.5" />
+                <span className="hidden sm:inline">Split</span>
+              </ToggleGroupItem>
+              <ToggleGroupItem value="preview" size="sm" className="h-8 px-3 data-[state=on]:bg-primary/15 data-[state=on]:text-primary" title="Preview only">
+                <Eye className="w-3.5 h-3.5 sm:mr-1.5" />
+                <span className="hidden sm:inline">Preview</span>
+              </ToggleGroupItem>
+            </ToggleGroup>
           </div>
-          <DialogFooter>
+
+          <div
+            className={`flex-1 min-h-0 grid gap-3 ${
+              viewMode === "split" ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"
+            }`}
+          >
+            {(viewMode === "edit" || viewMode === "split") && (
+              <div className="flex flex-col min-h-0 border border-border/50 rounded-md overflow-hidden bg-background/40">
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground px-3 py-1.5 bg-muted/30 border-b border-border/50 shrink-0">
+                  Markdown
+                </div>
+                <Textarea
+                  placeholder="Write in Markdown..."
+                  value={draftContent}
+                  onChange={(e) => setDraftContent(e.target.value)}
+                  className="flex-1 resize-none border-0 rounded-none font-mono text-sm focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent"
+                  data-testid="textarea-note-content"
+                />
+              </div>
+            )}
+            {(viewMode === "preview" || viewMode === "split") && (
+              <div className="flex flex-col min-h-0 border border-border/50 rounded-md overflow-hidden bg-background/40">
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground px-3 py-1.5 bg-muted/30 border-b border-border/50 shrink-0">
+                  Preview
+                </div>
+                <div className="flex-1 overflow-y-auto p-4">
+                  {draftContent.trim() ? (
+                    <article className="prose prose-sm dark:prose-invert max-w-none
+                      prose-headings:border-b prose-headings:border-border/50 prose-headings:pb-2
+                      prose-a:text-primary prose-pre:bg-muted/50 prose-pre:border prose-pre:border-border/50">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{draftContent}</ReactMarkdown>
+                    </article>
+                  ) : (
+                    <p className="text-sm italic text-muted-foreground">
+                      Nothing to preview yet.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <DialogFooter className="shrink-0">
             <Button variant="ghost" onClick={closeEditor}>
               Cancel
             </Button>
