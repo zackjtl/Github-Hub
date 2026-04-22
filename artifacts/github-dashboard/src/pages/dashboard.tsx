@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "wouter";
 import { useUserProfile, useUserRepos } from "@/hooks/use-github-api";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RepoCard } from "@/components/repo-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle, GitFork, Star, BookOpen, Lock, Globe, Pin } from "lucide-react";
@@ -180,79 +180,45 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        {/* Main Content Area */}
-        <div className="lg:col-span-2 space-y-8">
-          <div>
-            <div className="flex items-center justify-between mb-4 gap-2">
-              <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2">
-                {prefs.mode === "manual" && <Pin className="w-4 h-4 text-primary" />}
-                {sectionTitle}
-              </h3>
-              <div className="flex items-center gap-1">
-                <DashboardReposConfig repos={repos ?? []} />
-                <Link href="/repos">
-                  <Button variant="link" className="text-primary hover:text-primary/80 px-2">View all</Button>
-                </Link>
-              </div>
-            </div>
-            {displayedRepos.length > 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {displayedRepos.map((repo: any) => (
-                  <RepoCard key={repo.id} repo={repo} />
-                ))}
-              </div>
-            ) : prefs.mode === "manual" ? (
-              <div className="border border-dashed border-border/60 rounded-xl p-10 text-center bg-card/30">
-                <Pin className="w-8 h-8 mx-auto mb-3 text-muted-foreground/60" />
-                <p className="text-sm text-muted-foreground mb-4">
-                  No repositories pinned yet. Pick the ones you want to keep an eye on.
-                </p>
-                <DashboardReposConfig
-                  repos={repos ?? []}
-                  trigger={
-                    <Button size="sm" data-testid="button-pick-repos-empty">
-                      Pick repositories
-                    </Button>
-                  }
-                />
-              </div>
-            ) : (
-              <div className="text-sm text-muted-foreground italic text-center py-8">
-                No repositories found.
-              </div>
-            )}
+      <div>
+        <div className="flex items-center justify-between mb-4 gap-2">
+          <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2">
+            {prefs.mode === "manual" && <Pin className="w-4 h-4 text-primary" />}
+            {sectionTitle}
+          </h3>
+          <div className="flex items-center gap-1">
+            <DashboardReposConfig repos={repos ?? []} />
+            <Link href="/repos">
+              <Button variant="link" className="text-primary hover:text-primary/80 px-2">View all</Button>
+            </Link>
           </div>
         </div>
-
-        {/* Sidebar Area */}
-        <div className="space-y-8">
-          <Card className="bg-card/50 border-border/50 backdrop-blur-sm shadow-sm">
-            <CardHeader>
-              <CardTitle>Language Distribution</CardTitle>
-              <CardDescription>Based on repository count</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {stats.topLanguages.map((lang) => (
-                  <div key={lang.name} className="flex items-center">
-                    <div 
-                      className="w-3 h-3 rounded-full mr-3 shadow-sm"
-                      style={{ backgroundColor: getLanguageColor(lang.name) }}
-                    />
-                    <div className="flex-1 text-sm font-medium text-foreground">{lang.name}</div>
-                    <div className="text-sm text-muted-foreground">{lang.count}</div>
-                  </div>
-                ))}
-                {stats.topLanguages.length === 0 && (
-                  <div className="text-sm text-muted-foreground text-center py-4">
-                    No language data available
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {displayedRepos.length > 0 ? (
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
+            {displayedRepos.map((repo: any) => (
+              <RepoCard key={repo.id} repo={repo} />
+            ))}
+          </div>
+        ) : prefs.mode === "manual" ? (
+          <div className="border border-dashed border-border/60 rounded-xl p-10 text-center bg-card/30">
+            <Pin className="w-8 h-8 mx-auto mb-3 text-muted-foreground/60" />
+            <p className="text-sm text-muted-foreground mb-4">
+              No repositories pinned yet. Pick the ones you want to keep an eye on.
+            </p>
+            <DashboardReposConfig
+              repos={repos ?? []}
+              trigger={
+                <Button size="sm" data-testid="button-pick-repos-empty">
+                  Pick repositories
+                </Button>
+              }
+            />
+          </div>
+        ) : (
+          <div className="text-sm text-muted-foreground italic text-center py-8">
+            No repositories found.
+          </div>
+        )}
       </div>
     </div>
   );
