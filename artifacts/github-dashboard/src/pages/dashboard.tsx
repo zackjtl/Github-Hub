@@ -4,14 +4,17 @@ import { useUserProfile, useUserRepos } from "@/hooks/use-github-api";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { RepoCard } from "@/components/repo-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AlertCircle, GitFork, Star, BookOpen, Lock, Globe } from "lucide-react";
+import { AlertCircle, GitFork, Star, BookOpen, Lock, Globe, Pin } from "lucide-react";
 import { getLanguageColor } from "@/lib/language-colors";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { useDashboardPrefs } from "@/hooks/use-dashboard-prefs";
+import { DashboardReposConfig } from "@/components/dashboard-repos-config";
 
 export function Dashboard() {
   const { data: profile, isLoading: isProfileLoading, error: profileError } = useUserProfile();
   const { data: repos, isLoading: isReposLoading, error: reposError } = useUserRepos();
+  const { prefs } = useDashboardPrefs();
 
   const stats = useMemo(() => {
     if (!repos) return null;
@@ -44,11 +47,6 @@ export function Dashboard() {
       .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
       .slice(0, 6);
 
-    // Get most starred repos
-    const topRepos = [...repos]
-      .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
-      .slice(0, 6);
-
     return {
       totalRepos: repos.length,
       totalStars,
@@ -57,9 +55,23 @@ export function Dashboard() {
       publicCount,
       topLanguages,
       recentRepos,
-      topRepos
     };
   }, [repos]);
+
+  const displayedRepos = useMemo(() => {
+    if (!repos || !stats) return [];
+    if (prefs.mode === "manual") {
+      const byName = new Map<string, any>(
+        repos.map((r: any) => [r.full_name as string, r]),
+      );
+      return prefs.pinnedRepos
+        .map((name) => byName.get(name))
+        .filter(Boolean);
+    }
+    return stats.recentRepos;
+  }, [repos, stats, prefs.mode, prefs.pinnedRepos]);
+
+  const sectionTitle = prefs.mode === "manual" ? "Pinned Repositories" : "Recently Updated";
 
   if (profileError || reposError) {
     return (
@@ -172,29 +184,45 @@ export function Dashboard() {
         {/* Main Content Area */}
         <div className="lg:col-span-2 space-y-8">
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold tracking-tight">Recently Updated</h3>
-              <Link href="/repos">
-                <Button variant="link" className="text-primary hover:text-primary/80 px-0">View all</Button>
-              </Link>
+            <div className="flex items-center justify-between mb-4 gap-2">
+              <h3 className="text-xl font-semibold tracking-tight flex items-center gap-2">
+                {prefs.mode === "manual" && <Pin className="w-4 h-4 text-primary" />}
+                {sectionTitle}
+              </h3>
+              <div className="flex items-center gap-1">
+                <DashboardReposConfig repos={repos ?? []} />
+                <Link href="/repos">
+                  <Button variant="link" className="text-primary hover:text-primary/80 px-2">View all</Button>
+                </Link>
+              </div>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {stats.recentRepos.map((repo: any) => (
-                <RepoCard key={repo.id} repo={repo} />
-              ))}
-            </div>
-          </div>
-
-          {stats.topRepos.length > 0 && stats.topRepos[0].stargazers_count > 0 && (
-            <div>
-              <h3 className="text-xl font-semibold tracking-tight mb-4">Most Starred</h3>
+            {displayedRepos.length > 0 ? (
               <div className="grid gap-4 sm:grid-cols-2">
-                {stats.topRepos.slice(0, 4).map((repo: any) => (
+                {displayedRepos.map((repo: any) => (
                   <RepoCard key={repo.id} repo={repo} />
                 ))}
               </div>
-            </div>
-          )}
+            ) : prefs.mode === "manual" ? (
+              <div className="border border-dashed border-border/60 rounded-xl p-10 text-center bg-card/30">
+                <Pin className="w-8 h-8 mx-auto mb-3 text-muted-foreground/60" />
+                <p className="text-sm text-muted-foreground mb-4">
+                  No repositories pinned yet. Pick the ones you want to keep an eye on.
+                </p>
+                <DashboardReposConfig
+                  repos={repos ?? []}
+                  trigger={
+                    <Button size="sm" data-testid="button-pick-repos-empty">
+                      Pick repositories
+                    </Button>
+                  }
+                />
+              </div>
+            ) : (
+              <div className="text-sm text-muted-foreground italic text-center py-8">
+                No repositories found.
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Sidebar Area */}
