@@ -55,7 +55,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div>
             <h1 className="font-bold text-foreground">GitHub-Hub</h1>
-            <p className="text-xs text-muted-foreground">A better experience portal</p>
+            <p className="text-xs text-muted-foreground">Personal Github Portal</p>
           </div>
         </div>
 

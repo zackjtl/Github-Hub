@@ -53,7 +53,7 @@ export function SetupScreen() {
             </div>
             <CardTitle className="text-2xl font-bold tracking-tight">GitHub-Hub Setup</CardTitle>
             <CardDescription className="text-muted-foreground text-sm">
-              A better experience portal — connect your GitHub account to get started.
+              Personal Github Portal — connect your GitHub account to get started.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-5">
