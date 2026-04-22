@@ -18,6 +18,7 @@ import {
   BookOpen, Users, GitCommit, AlertCircle, CircleDot, FileText
 } from "lucide-react";
 import { RepoNotes } from "@/components/repo-notes";
+import { CommitActivityChart } from "@/components/commit-activity-chart";
 import { formatDistanceToNow, format } from "date-fns";
 import { getLanguageColor } from "@/lib/language-colors";
 import ReactMarkdown from "react-markdown";
@@ -137,6 +138,8 @@ export function RepoDetail() {
           </div>
         </div>
       </div>
+
+      <CommitActivityChart owner={owner} repo={repoName} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}

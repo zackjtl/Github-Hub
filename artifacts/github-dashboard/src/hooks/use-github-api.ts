@@ -99,6 +99,42 @@ export function useRepoCommits(owner: string, repo: string) {
   });
 }
 
+export interface CommitActivityWeek {
+  days: number[]; // [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+  total: number;
+  week: number; // unix timestamp (start of week)
+}
+
+export function useRepoCommitActivity(owner: string, repo: string) {
+  const { config } = useGitHub();
+  return useQuery<CommitActivityWeek[] | null>({
+    queryKey: ["repoCommitActivity", owner, repo],
+    queryFn: async () => {
+      const res = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/stats/commit_activity`, {
+        headers: {
+          Authorization: `token ${config!.token}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      });
+      // 202 = stats are being computed; throw to trigger React Query retry
+      if (res.status === 202) {
+        throw new Error("STATS_COMPUTING");
+      }
+      if (res.status === 204) return [];
+      if (!res.ok) throw new Error(`GitHub API error: ${res.statusText}`);
+      const data = await res.json();
+      return Array.isArray(data) ? data : [];
+    },
+    enabled: !!config?.token && !!owner && !!repo,
+    retry: (failureCount, err) => {
+      if ((err as Error)?.message === "STATS_COMPUTING") return failureCount < 5;
+      return failureCount < 1;
+    },
+    retryDelay: (attempt) => Math.min(2000 * 2 ** attempt, 10000),
+    staleTime: 5 * 60_000,
+  });
+}
+
 export function useRepoReadme(owner: string, repo: string) {
   const { config } = useGitHub();
   return useQuery({
