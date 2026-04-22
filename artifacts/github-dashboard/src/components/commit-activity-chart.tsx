@@ -2,7 +2,8 @@ import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRepoCommitActivity, type CommitActivityWeek } from "@/hooks/use-github-api";
-import { Activity, GitCommit, Flame, CalendarDays, AlertCircle } from "lucide-react";
+import { Activity, GitCommit, Flame, CalendarDays, AlertCircle, RefreshCw, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import {
   Tooltip,
@@ -73,7 +74,7 @@ function computeStats(weeks: CommitActivityWeek[]) {
 }
 
 export function CommitActivityChart({ owner, repo }: CommitActivityChartProps) {
-  const { data: weeks, isLoading, error, isFetching } = useRepoCommitActivity(owner, repo);
+  const { data: weeks, isLoading, error, isFetching, refetch } = useRepoCommitActivity(owner, repo);
 
   const { stats, max, monthMarkers } = useMemo(() => {
     if (!weeks || weeks.length === 0) {
@@ -115,14 +116,24 @@ export function CommitActivityChart({ owner, repo }: CommitActivityChartProps) {
             <Skeleton className="h-32 w-full rounded-lg" />
           </div>
         ) : isComputing ? (
-          <div className="text-center py-10 text-sm text-muted-foreground">
-            <Activity className="w-8 h-8 mx-auto mb-3 text-muted-foreground/50 animate-pulse" />
-            GitHub is computing the stats for this repo. This usually takes a few seconds — try again shortly.
+          <div className="text-center py-10 text-sm text-muted-foreground space-y-3">
+            <Activity className="w-8 h-8 mx-auto text-muted-foreground/50 animate-pulse" />
+            <div>
+              GitHub is still computing the stats for this repo.
+              {isFetching && <span className="block text-xs mt-1 opacity-70">Auto-retrying…</span>}
+            </div>
+            <Button size="sm" variant="outline" onClick={() => refetch()} disabled={isFetching}>
+              {isFetching ? <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5 mr-1.5" />}
+              Retry now
+            </Button>
           </div>
         ) : error ? (
-          <div className="text-center py-8 text-sm text-muted-foreground">
-            <AlertCircle className="w-6 h-6 text-destructive/70 mx-auto mb-2" />
-            Could not load commit activity.
+          <div className="text-center py-8 text-sm text-muted-foreground space-y-3">
+            <AlertCircle className="w-6 h-6 text-destructive/70 mx-auto" />
+            <div>Could not load commit activity.</div>
+            <Button size="sm" variant="outline" onClick={() => refetch()}>
+              <RefreshCw className="w-3.5 h-3.5 mr-1.5" /> Retry
+            </Button>
           </div>
         ) : !weeks || weeks.length === 0 || stats?.total === 0 ? (
           <div className="text-center py-10 text-sm text-muted-foreground italic">

@@ -127,10 +127,10 @@ export function useRepoCommitActivity(owner: string, repo: string) {
     },
     enabled: !!config?.token && !!owner && !!repo,
     retry: (failureCount, err) => {
-      if ((err as Error)?.message === "STATS_COMPUTING") return failureCount < 5;
+      if ((err as Error)?.message === "STATS_COMPUTING") return failureCount < 12;
       return failureCount < 1;
     },
-    retryDelay: (attempt) => Math.min(2000 * 2 ** attempt, 10000),
+    retryDelay: (attempt) => Math.min(1500 * 2 ** Math.min(attempt, 4), 8000),
     staleTime: 5 * 60_000,
   });
 }
