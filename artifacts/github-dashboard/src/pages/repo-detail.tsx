@@ -21,6 +21,7 @@ import { formatDistanceToNow, format } from "date-fns";
 import { getLanguageColor } from "@/lib/language-colors";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { RepoLinks } from "@/components/repo-links";
 
 export function RepoDetail() {
   const [, params] = useRoute("/repo/:owner/:repo");
@@ -235,6 +236,8 @@ export function RepoDetail() {
 
         {/* Sidebar */}
         <div className="space-y-6">
+          <RepoLinks owner={repo.owner.login} repo={repo.name} />
+
           <Card className="bg-card/40 border-border/50 backdrop-blur-sm">
             <CardHeader className="pb-4">
               <CardTitle className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
