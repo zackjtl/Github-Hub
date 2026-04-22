@@ -46,7 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-screen overflow-hidden app-bg-gradient">
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex w-64 flex-col border-r border-border bg-card/50 backdrop-blur">
         <div className="p-6 border-b border-border flex items-center gap-3">
@@ -124,7 +124,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Sheet>
         </header>
 
-        <main className="flex-1 overflow-auto bg-background/50">
+        <main className="flex-1 overflow-auto">
           <div className="container mx-auto p-4 md:p-8 max-w-6xl">
             {children}
           </div>
