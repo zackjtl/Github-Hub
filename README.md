@@ -4,6 +4,8 @@ A self-hosted personal GitHub portal — a beautiful replacement for GitHub's de
 
 > **No backend. No database. No vendor lock-in.** Your token and preferences live in your browser's `localStorage`. Notes are stored as private Gists on your own GitHub account, so they sync across devices.
 
+![Dashboard](Docs/dashboard.png)
+
 ## Features
 
 - 📊 **Dashboard** — Overview of your activity, top repos, language stats
@@ -13,6 +15,12 @@ A self-hosted personal GitHub portal — a beautiful replacement for GitHub's de
 - 📝 **Markdown Notes** — Per-repo notes with live preview, synced via private Gist
 - ⚙️ **Configurable Dashboard** — Choose which repos appear on your dashboard
 - 🌗 **Dark mode** by default, with a polished gradient theme
+
+### Screenshots
+
+| Repo Detail | Notes |
+|---|---|
+| ![Repo detail page](Docs/repo-detail.png) | ![Markdown notes](Docs/notes.png) |
 
 ## Quick Start — Deploy Your Own (5 minutes)
 
