@@ -18,6 +18,20 @@ English ｜ [繁體中文](./README.md)
 - ⚙️ **Configurable Dashboard** — Choose which repos appear on your dashboard
 - 🌗 **Dark mode** by default, with a polished gradient theme
 
+### Custom Platform Links
+
+A GitHub repo is usually just the source — the real work lives elsewhere: the deployed site, design files, docs, issue trackers, cloud consoles. GitHub-Hub lets you pin any number of links **per repo**, with icons and colors auto-detected from the platform (Vercel, Netlify, Figma, Notion, Linear, Supabase, Firebase, Google Drive…).
+
+For one repo you might pin all of:
+
+- 🌐 **Vercel** deployment
+- 🎨 **Figma** design file
+- 📋 **Linear** project board
+- 📖 **Notion** spec doc
+- 🗄️ **Supabase** backend console
+
+These show at the top of the repo detail page for one-click access. Link configuration lives only in your browser's `localStorage` — nothing is uploaded.
+
 ### Screenshots
 
 | Repo Detail | Notes |

@@ -18,6 +18,20 @@
 - ⚙️ **可自訂的儀表板** — 自由選擇要顯示在儀表板上的 repo
 - 🌗 **預設深色模式**，採用精緻漸層配色
 
+### 自訂平台連結
+
+GitHub 上的 repo 通常只是真正成果的「源頭」 — 實際的網站、文件、設計稿、看板、雲端服務 console 都散落在各個平台。GitHub-Hub 讓你可以為**每個 repo** 釘選任意數量的連結，並依照平台自動套用 icon 與顏色（Vercel、Netlify、Figma、Notion、Linear、Supabase、Firebase、Google Drive…）。
+
+例如同一個 repo 可以同時掛上：
+
+- 🌐 **Vercel** 部署網址
+- 🎨 **Figma** 設計稿
+- 📋 **Linear** 工單
+- 📖 **Notion** 規格文件
+- 🗄️ **Supabase** 後端 console
+
+這些連結會顯示在 repo 詳細頁的最上方，一鍵直達相關平台。設定資料只存在你瀏覽器的 `localStorage`，不會外流。
+
 ### 截圖
 
 | Repo 詳細頁 | 筆記 |
