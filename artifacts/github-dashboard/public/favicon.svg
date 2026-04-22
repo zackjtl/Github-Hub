@@ -8,12 +8,12 @@
 
   <rect width="180" height="180" rx="40" fill="url(#bg)"/>
 
-  <g stroke="#E0E7FF" stroke-width="11" stroke-linecap="round" fill="none">
-    <path d="M 54 130 V 90 Q 54 76 68 76 H 90"/>
-    <path d="M 126 50 V 90 Q 126 104 112 104 H 90"/>
+  <g stroke="#E0E7FF" stroke-width="16" stroke-linecap="round" fill="none">
+    <path d="M 32 152 V 90 Q 32 70 52 70 H 90"/>
+    <path d="M 148 28 V 90 Q 148 110 128 110 H 90"/>
   </g>
 
-  <circle cx="54"  cy="130" r="13" fill="#E0E7FF"/>
-  <circle cx="126" cy="50"  r="13" fill="#E0E7FF"/>
-  <circle cx="90"  cy="90"  r="20" fill="#FBBF24"/>
+  <circle cx="32"  cy="152" r="18" fill="#E0E7FF"/>
+  <circle cx="148" cy="28"  r="18" fill="#E0E7FF"/>
+  <circle cx="90"  cy="90"  r="30" fill="#FBBF24"/>
 </svg>
