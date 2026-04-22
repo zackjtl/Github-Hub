@@ -179,7 +179,7 @@ export function DashboardReposConfig({
                 )}
               </div>
 
-              <ScrollArea className="flex-1 min-h-[280px] max-h-[40vh] border border-border/50 rounded-lg">
+              <ScrollArea className="h-[340px] border border-border/50 rounded-lg">
                 <div className="p-1">
                   {filteredRepos.length === 0 ? (
                     <div className="text-center py-8 text-sm text-muted-foreground">
