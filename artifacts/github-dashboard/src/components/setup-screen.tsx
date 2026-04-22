@@ -51,9 +51,9 @@ export function SetupScreen() {
                 <Code2 className="h-8 w-8" />
               </div>
             </div>
-            <CardTitle className="text-2xl font-bold tracking-tight">GitDash Setup</CardTitle>
+            <CardTitle className="text-2xl font-bold tracking-tight">GitHub-Hub Setup</CardTitle>
             <CardDescription className="text-muted-foreground text-sm">
-              Connect your GitHub account to access your personal command center.
+              A better experience portal — connect your GitHub account to get started.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-5">

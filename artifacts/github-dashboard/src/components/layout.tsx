@@ -54,8 +54,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Code2 className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="font-bold text-foreground">GitDash</h1>
-            <p className="text-xs text-muted-foreground">Command Center</p>
+            <h1 className="font-bold text-foreground">GitHub-Hub</h1>
+            <p className="text-xs text-muted-foreground">A better experience portal</p>
           </div>
         </div>
 
@@ -89,7 +89,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <div className="bg-primary/20 p-1.5 rounded-lg text-primary">
               <Code2 className="h-5 w-5" />
             </div>
-            <h1 className="font-bold text-foreground">GitDash</h1>
+            <h1 className="font-bold text-foreground">GitHub-Hub</h1>
           </div>
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>

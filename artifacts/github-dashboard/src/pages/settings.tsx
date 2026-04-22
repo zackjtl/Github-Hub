@@ -237,7 +237,7 @@ export function Settings() {
         <CardHeader>
           <CardTitle>Appearance</CardTitle>
           <CardDescription>
-            Customize how GitDash looks on your device.
+            Customize how GitHub-Hub looks on your device.
           </CardDescription>
         </CardHeader>
         <CardContent>
