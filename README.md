@@ -4,6 +4,8 @@ A self-hosted personal GitHub portal — a beautiful replacement for GitHub's de
 
 > **No backend. No database. No vendor lock-in.** Your token and preferences live in your browser's `localStorage`. Notes are stored as private Gists on your own GitHub account, so they sync across devices.
 
+English ｜ [繁體中文](./README.zh-TW.md)
+
 ![Dashboard](Docs/dashboard.png)
 
 ## Features
