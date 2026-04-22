@@ -22,13 +22,22 @@
 
 GitHub 上的 repo 通常只是真正成果的「源頭」 — 實際的網站、文件、設計稿、看板、雲端服務 console 都散落在各個平台。GitHub-Hub 讓你可以為**每個 repo** 釘選任意數量的連結，並依照平台自動套用 icon 與顏色（Vercel、Netlify、Figma、Notion、Linear、Supabase、Firebase、Google Drive…）。
 
-例如同一個 repo 可以同時掛上：
+已內建支援的常見平台：
 
-- 🌐 **Vercel** 部署網址
-- 🎨 **Figma** 設計稿
-- 📋 **Linear** 工單
-- 📖 **Notion** 規格文件
-- 🗄️ **Supabase** 後端 console
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+![Linear](https://img.shields.io/badge/Linear-5E6AD2?style=for-the-badge&logo=linear&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![Google Drive](https://img.shields.io/badge/Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
+![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
+![Jira](https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white)
+
+⋯ 還有更多。沒列到的平台也能新增，會自動套上通用 icon。
 
 這些連結會顯示在 repo 詳細頁的最上方，一鍵直達相關平台。設定資料只存在你瀏覽器的 `localStorage`，不會外流。
 

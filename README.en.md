@@ -22,13 +22,22 @@ English ｜ [繁體中文](./README.md)
 
 A GitHub repo is usually just the source — the real work lives elsewhere: the deployed site, design files, docs, issue trackers, cloud consoles. GitHub-Hub lets you pin any number of links **per repo**, with icons and colors auto-detected from the platform (Vercel, Netlify, Figma, Notion, Linear, Supabase, Firebase, Google Drive…).
 
-For one repo you might pin all of:
+Built-in support for the most common platforms:
 
-- 🌐 **Vercel** deployment
-- 🎨 **Figma** design file
-- 📋 **Linear** project board
-- 📖 **Notion** spec doc
-- 🗄️ **Supabase** backend console
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)
+![Linear](https://img.shields.io/badge/Linear-5E6AD2?style=for-the-badge&logo=linear&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![Google Drive](https://img.shields.io/badge/Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
+![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
+![Jira](https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white)
+
+…and more. Any platform not on the list can still be added — it just falls back to a generic icon.
 
 These show at the top of the repo detail page for one-click access. Link configuration lives only in your browser's `localStorage` — nothing is uploaded.
 
