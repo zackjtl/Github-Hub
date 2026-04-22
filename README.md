@@ -1,136 +1,136 @@
 # GitHub Hub
 
-A self-hosted personal GitHub portal — a beautiful replacement for GitHub's default repo listing. Build your own dashboard with stats, a repo browser, repo detail pages, customizable links, and per-repo Markdown notes — all running on your own GitHub Pages site for free.
+打造屬於自己的個人 GitHub 入口網站 — 取代 GitHub 預設的 repo 列表，做一個漂亮的儀表板。內建統計、repo 瀏覽器、repo 詳細頁、自訂連結、每個 repo 的 Markdown 筆記，全部免費部署在自己的 GitHub Pages 上。
 
-> **No backend. No database. No vendor lock-in.** Your token and preferences live in your browser's `localStorage`. Notes are stored as private Gists on your own GitHub account, so they sync across devices.
+> **沒有後端、沒有資料庫、沒有平台綁定。** Token 跟偏好設定都存在你瀏覽器的 `localStorage`，筆記則存在你自己 GitHub 帳號的私人 Gist，可以多裝置同步。
 
-English ｜ [繁體中文](./README.zh-TW.md)
+繁體中文 ｜ [English](./README.en.md)
 
 ![Dashboard](Docs/dashboard.png)
 
-## Features
+## 功能特色
 
-- 📊 **Dashboard** — Overview of your activity, top repos, language stats
-- 🔍 **Repo Browser** — Search and filter all your repositories
-- 📄 **Repo Detail Pages** — README rendering, metadata, contributors
-- 🔗 **Custom Platform Links** — Pin per-repo links (deployed site, docs, design files…)
-- 📝 **Markdown Notes** — Per-repo notes with live preview, synced via private Gist
-- ⚙️ **Configurable Dashboard** — Choose which repos appear on your dashboard
-- 🌗 **Dark mode** by default, with a polished gradient theme
+- 📊 **儀表板** — 活動概覽、熱門 repo、語言統計
+- 🔍 **Repo 瀏覽器** — 搜尋與篩選所有 repo
+- 📄 **Repo 詳細頁** — README 渲染、metadata、貢獻者
+- 🔗 **自訂平台連結** — 為每個 repo 釘選相關連結（部署網址、文件、設計稿…）
+- 📝 **Markdown 筆記** — 每個 repo 一份筆記，支援即時預覽，透過私人 Gist 同步
+- ⚙️ **可自訂的儀表板** — 自由選擇要顯示在儀表板上的 repo
+- 🌗 **預設深色模式**，採用精緻漸層配色
 
-### Screenshots
+### 截圖
 
-| Repo Detail | Notes |
+| Repo 詳細頁 | 筆記 |
 |---|---|
-| ![Repo detail page](Docs/repo-detail.png) | ![Markdown notes](Docs/notes.png) |
+| ![Repo 詳細頁](Docs/repo-detail.png) | ![Markdown 筆記](Docs/notes.png) |
 
-## Quick Start — Deploy Your Own (5 minutes)
+## 快速開始 — 部署你自己的版本（5 分鐘）
 
-You'll get your own copy at `https://<your-username>.github.io/<repo-name>/`.
+部署完之後你會有屬於自己的網址 `https://<你的帳號>.github.io/<repo名稱>/`。
 
-### 1. Use this repo as a template
+### 1. 用這個 repo 當範本
 
-Click **[Use this template](../../generate)** at the top of the GitHub page → **Create a new repository**. Pick a name (e.g. `my-github-hub`) and make it **Public** (required for free GitHub Pages).
+在 GitHub 頁面上方點 **[Use this template](../../generate)** → **Create a new repository**。取個名字（例如 `my-github-hub`），設為 **Public**（免費 GitHub Pages 必須是公開的）。
 
-> Or fork / clone manually if you prefer.
+> 也可以直接 fork 或手動 clone。
 
-### 2. Enable GitHub Pages
+### 2. 啟用 GitHub Pages
 
-In your new repo:
+到你的新 repo：
 
-1. Go to **Settings → Pages**
-2. Under **Build and deployment → Source**, choose **GitHub Actions**
+1. 點 **Settings → Pages**
+2. **Build and deployment → Source** 選 **GitHub Actions**
 
-### 3. Trigger the deployment
+### 3. 觸發部署
 
-The included GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) builds and deploys automatically on every push to `main`.
+repo 內附的 GitHub Actions workflow（`.github/workflows/deploy-pages.yml`）會在每次推到 `main` 時自動建置部署。
 
-- If you used "Use this template", the first push already happened — go to the **Actions** tab and watch it run.
-- If nothing is running, push any small change, or open the workflow on the Actions tab and click **Run workflow**.
+- 如果你是用 "Use this template" 建的，第一次推送已經發生了 — 到 **Actions** 分頁就能看到正在跑。
+- 如果沒看到任何執行，隨便推一個小修改，或在 Actions 分頁打開 workflow 點 **Run workflow**。
 
-After ~1–2 minutes, your site is live at:
+約 1～2 分鐘後，網站會出現在：
 
 ```
-https://<your-username>.github.io/<repo-name>/
+https://<你的帳號>.github.io/<repo名稱>/
 ```
 
-### 4. Set it up
+### 4. 設定
 
-1. Open your site.
-2. The Setup screen asks for a **GitHub Personal Access Token**.
-3. Create one at https://github.com/settings/tokens → **Generate new token (classic)**.
-4. Select scopes: **`repo`**, **`user`**, **`gist`**.
-5. Paste the token into the Setup screen. Done — your dashboard loads.
+1. 打開你的網站。
+2. Setup 畫面會請你輸入一組 **GitHub Personal Access Token**。
+3. 到 https://github.com/settings/tokens 點 **Generate new token (classic)** 建立。
+4. 勾選權限：**`repo`**、**`user`**、**`gist`**。
+5. 把 token 貼到 Setup 畫面 — 完成，儀表板會載入。
 
-The token is saved only in your browser's `localStorage`. Visitors of your site will see the same Setup screen and supply their own token; they cannot read yours.
+Token 只會存在你自己的瀏覽器 `localStorage`。其他人來看你的網站也只會看到 Setup 畫面，他們得用自己的 token，看不到你的。
 
-## Local Development
+## 本地開發
 
-Requirements: **Node.js 22+** and **pnpm 10+**.
+需求：**Node.js 22+** 與 **pnpm 10+**。
 
 ```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/<你的帳號>/<repo名稱>.git
+cd <repo名稱>
 pnpm install
 pnpm --filter @workspace/github-dashboard run dev
 ```
 
-The dev server prints a local URL. The app expects a `BASE_PATH` env var in production builds (the GitHub Actions workflow sets this automatically based on your repo name).
+開發伺服器啟動後會印出本地網址。Production build 時需要 `BASE_PATH` 環境變數（GitHub Actions workflow 會根據 repo 名自動帶入）。
 
-To preview a production build locally:
+要在本地預覽 production build：
 
 ```bash
 BASE_PATH=/ PORT=4173 pnpm --filter @workspace/github-dashboard run build
 BASE_PATH=/ PORT=4173 pnpm --filter @workspace/github-dashboard run serve
 ```
 
-## How It Works
+## 運作原理
 
-| Concern | Where it lives |
+| 內容 | 儲存位置 |
 |---|---|
-| GitHub token | `localStorage` (`github_config`) — never sent anywhere except api.github.com |
-| Theme preference | `localStorage` (`theme`) |
-| Custom repo links | `localStorage` (`repo_links`) |
-| Dashboard repo selection | `localStorage` (`dashboard_prefs`) |
-| Notes content | Private Gist on your GitHub account (one Gist per repo, marked `[gitdash:notes] owner/repo`) |
-| Notes Gist ID cache | `localStorage` (`gitdash_notes_gist_ids`) |
+| GitHub token | `localStorage`（`github_config`）— 只會送到 api.github.com，不會傳到任何其他地方 |
+| 主題偏好 | `localStorage`（`theme`）|
+| 自訂 repo 連結 | `localStorage`（`repo_links`）|
+| 儀表板 repo 選擇 | `localStorage`（`dashboard_prefs`）|
+| 筆記內容 | 你 GitHub 帳號上的私人 Gist（一個 repo 一份 Gist，描述標記為 `[gitdash:notes] owner/repo`）|
+| 筆記 Gist ID 快取 | `localStorage`（`gitdash_notes_gist_ids`）|
 
-Because notes live in a private Gist, they sync seamlessly between devices — log in on a new browser with the same token and your notes appear.
+因為筆記放在私人 Gist，所以可以無痛跨裝置同步 — 在新瀏覽器登入相同 token，筆記就會自動出現。
 
-## Tech Stack
+## 技術棧
 
 - React 19 + Vite
 - Tailwind CSS v4 + shadcn/ui
-- TanStack Query for data fetching
-- wouter for routing
-- react-markdown + remark-gfm for note rendering
-- Deployed via GitHub Actions to GitHub Pages
+- TanStack Query 處理資料抓取
+- wouter 路由
+- react-markdown + remark-gfm 渲染筆記
+- 透過 GitHub Actions 部署到 GitHub Pages
 
-## Customizing
+## 客製化
 
-The app code lives in `artifacts/github-dashboard/src/`:
+App 程式碼放在 `artifacts/github-dashboard/src/`：
 
-- `pages/` — top-level routes (dashboard, repo-browser, repo-detail, settings)
-- `components/` — UI components, including `setup-screen.tsx` for the onboarding flow
-- `hooks/use-github-api.ts` — all GitHub REST API calls
-- `index.css` — gradient theme and design tokens
+- `pages/` — 主要路由頁面（dashboard、repo-browser、repo-detail、settings）
+- `components/` — UI 元件，包含 onboarding 用的 `setup-screen.tsx`
+- `hooks/use-github-api.ts` — 所有 GitHub REST API 呼叫
+- `index.css` — 漸層主題與設計變數
 
-Tweak colors, add tabs, change the layout — it's all yours.
+顏色、tabs、版面隨你改 — 整個都是你的。
 
-## FAQ
+## 常見問題
 
-**Is my token safe?**
-Yes. It's stored only in your browser, sent only to `api.github.com` over HTTPS, and never written to any build artifact. If you visit someone else's deployment of this app, they cannot read your token.
+**我的 token 安全嗎？**
+安全。它只存在你自己的瀏覽器，只會透過 HTTPS 送到 `api.github.com`，不會被寫進任何 build 產物。即使你去看別人部署的版本，他們也讀不到你的 token。
 
-**What if I want to keep my repo private?**
-GitHub Pages on private repos requires GitHub Pro. The app itself works perfectly fine — only the hosting tier differs.
+**可以把 repo 設為 Private 嗎？**
+GitHub Pages 對 Private repo 需要 GitHub Pro 帳號。App 本身完全沒問題，只是 hosting 方案不一樣。
 
-**Can I use a custom domain?**
-Yes. Add a `CNAME` file under `artifacts/github-dashboard/public/` with your domain, and configure DNS as per [GitHub's docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site). You'll also need to set `BASE_PATH=/` in the workflow.
+**可以使用自訂網域嗎？**
+可以。在 `artifacts/github-dashboard/public/` 底下加一個 `CNAME` 檔，內容寫你的網域，再依照 [GitHub 文件](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site) 設定 DNS。同時要把 workflow 裡的 `BASE_PATH` 改成 `/`。
 
-**Where are notes stored?**
-As private Gists on your own account, one per repo. The dashboard finds them by scanning your Gists for the marker `[gitdash:notes] owner/repo` in the description.
+**筆記存在哪？**
+你自己帳號的私人 Gist，一個 repo 一份。儀表板會掃描你的 Gist，靠描述裡的 `[gitdash:notes] owner/repo` 標記找出對應的筆記。
 
-## License
+## 授權
 
-MIT — do whatever you want, no warranty.
+MIT — 隨便用、沒有任何擔保。
