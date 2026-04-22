@@ -59,10 +59,10 @@ export function Settings() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <Alert className="bg-primary/5 border-primary/20 text-primary-foreground/90">
+          <Alert className="bg-primary/5 border-primary/20 text-foreground">
             <AlertTriangle className="h-4 w-4 text-primary" />
-            <AlertTitle>Local Storage Only</AlertTitle>
-            <AlertDescription className="text-sm opacity-90">
+            <AlertTitle className="text-foreground">Local Storage Only</AlertTitle>
+            <AlertDescription className="text-sm text-muted-foreground">
               Your personal access token is stored securely in your browser's local storage and is only sent directly to api.github.com.
             </AlertDescription>
           </Alert>
