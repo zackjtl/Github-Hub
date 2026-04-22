@@ -64,14 +64,15 @@ export function RepoCard({ repo, compact = false }: RepoCardProps) {
   }
 
   return (
-    <Card className="group hover-elevate transition-all border-border/50 bg-card/40 backdrop-blur-sm flex flex-col h-full overflow-hidden">
+    <Link href={`/repo/${repo.owner.login}/${repo.name}`} className="block h-full">
+    <Card className="group hover-elevate transition-all border-border/50 bg-card/40 backdrop-blur-sm flex flex-col h-full overflow-hidden cursor-pointer">
       <CardHeader className="p-5 pb-3">
         <div className="flex items-start justify-between gap-4">
-          <Link href={`/repo/${repo.owner.login}/${repo.name}`} className="min-w-0">
-            <CardTitle className="text-lg font-semibold text-primary group-hover:text-primary/80 transition-colors truncate cursor-pointer break-words">
+          <div className="min-w-0">
+            <CardTitle className="text-lg font-semibold text-primary group-hover:text-primary/80 transition-colors truncate break-words">
               {repo.name}
             </CardTitle>
-          </Link>
+          </div>
           <Badge variant={repo.private ? "secondary" : "outline"} className="shrink-0 text-[10px] h-5 px-1.5 font-mono">
             {repo.private ? <Lock className="w-3 h-3 mr-1"/> : <Globe className="w-3 h-3 mr-1"/>}
             {repo.private ? "Private" : "Public"}
@@ -131,5 +132,6 @@ export function RepoCard({ repo, compact = false }: RepoCardProps) {
         </div>
       </CardContent>
     </Card>
+    </Link>
   );
 }
