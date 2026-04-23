@@ -1,6 +1,8 @@
 name: Deploy GitHub Dashboard to Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -13,7 +15,32 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check-pages:
+    runs-on: ubuntu-latest
+    outputs:
+      enabled: ${{ steps.pages.outputs.enabled }}
+    steps:
+      - name: Check whether GitHub Pages is enabled
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          STATUS=$(curl -s -o /tmp/pages.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages")
+
+          if [ "${STATUS}" = "200" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages is enabled. Proceeding with deployment."
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "GitHub Pages is not enabled yet (HTTP ${STATUS}). Skipping deployment."
+          fi
+
   build:
+    needs: check-pages
+    if: needs.check-pages.outputs.enabled == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -59,7 +86,8 @@ jobs:
           path: artifacts/github-dashboard/dist/public
 
   deploy:
-    needs: build
+    needs: [check-pages, build]
+    if: needs.check-pages.outputs.enabled == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
