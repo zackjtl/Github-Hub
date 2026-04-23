@@ -107,14 +107,23 @@ export function useRepoReadme(owner: string, repo: string) {
       const res = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/readme`, {
         headers: {
           Authorization: `token ${config!.token}`,
-          Accept: "application/vnd.github.v3.raw", // Get raw markdown
+          Accept: "application/vnd.github+json",
         },
       });
       if (!res.ok) {
         if (res.status === 404) return null;
         throw new Error(`GitHub API error: ${res.statusText}`);
       }
-      return res.text();
+      const data = await res.json();
+      const content =
+        data?.encoding === "base64" && typeof data?.content === "string"
+          ? atob(data.content.replace(/\n/g, ""))
+          : "";
+
+      return {
+        content,
+        path: data?.path || "README.md",
+      };
     },
     enabled: !!config?.token && !!owner && !!repo,
   });
