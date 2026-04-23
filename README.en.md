@@ -1,6 +1,6 @@
 # GitHub Hub
 
-<a href="https://vercel.com/new/clone?repository-url=https://github.com/zackjtl/Github-Hub&root-directory=artifacts%2Fgithub-dashboard" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Deploy_with_Vercel-181717?style=for-the-badge&logo=vercel&logoColor=white" alt="Deploy with Vercel" /></a> <a href="../../generate" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Use_this_template-181717?style=for-the-badge&logo=github&logoColor=white" alt="Use this template" /></a>
+<a href="https://vercel.com/new/clone?repository-url=https://github.com/zackjtl/Github-Hub&root-directory=artifacts%2Fgithub-dashboard&project-name=github-hub" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Deploy_with_Vercel-181717?style=for-the-badge&logo=vercel&logoColor=white" alt="Deploy with Vercel" /></a> <a href="../../generate" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Use_this_template-181717?style=for-the-badge&logo=github&logoColor=white" alt="Use this template" /></a>
 
 A self-hosted personal GitHub portal — a beautiful replacement for GitHub's default repo listing. Pin the public and private repos you currently care about on your home page, with built-in stats, a repo browser, repo detail pages, customizable links, and per-repo Markdown notes — deployable for free on GitHub Pages or as a static site on Vercel.
 

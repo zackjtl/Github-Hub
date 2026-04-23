@@ -1,6 +1,6 @@
 # GitHub Hub
 
-<a href="https://vercel.com/new/clone?repository-url=https://github.com/zackjtl/Github-Hub&root-directory=artifacts%2Fgithub-dashboard" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Deploy_with_Vercel-181717?style=for-the-badge&logo=vercel&logoColor=white" alt="Deploy with Vercel" /></a> | <a href="../../generate" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Use_this_template-181717?style=for-the-badge&logo=github&logoColor=white" alt="Use this template" /></a>
+<a href="https://vercel.com/new/clone?repository-url=https://github.com/zackjtl/Github-Hub&root-directory=artifacts%2Fgithub-dashboard&project-name=github-hub" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Deploy_with_Vercel-181717?style=for-the-badge&logo=vercel&logoColor=white" alt="Deploy with Vercel" /></a> | <a href="../../generate" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Use_this_template-181717?style=for-the-badge&logo=github&logoColor=white" alt="Use this template" /></a>
 
 打造屬於自己的個人 GitHub 入口網站 — 取代 GitHub 預設的 repo 列表。釘選近期關注的public與private repo在首頁上，內建統計、repo 瀏覽器、repo 詳細頁、自訂連結、每個 repo 的 Markdown 筆記，全部免費部署在自己的 GitHub Pages或vercel靜態網頁上。
 
