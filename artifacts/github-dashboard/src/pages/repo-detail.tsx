@@ -173,6 +173,7 @@ export function RepoDetail() {
                     <article className="prose prose-sm md:prose-base dark:prose-invert max-w-none 
                       prose-headings:border-b prose-headings:border-border/50 prose-headings:pb-2 prose-headings:mb-4
                       prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                      prose-img:inline-block prose-img:align-middle prose-img:my-0
                       prose-img:rounded-lg prose-img:border prose-img:border-border/20
                       prose-pre:bg-muted/50 prose-pre:border prose-pre:border-border/50">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{readme}</ReactMarkdown>
