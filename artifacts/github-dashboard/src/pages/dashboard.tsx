@@ -39,7 +39,7 @@ export function Dashboard() {
 
     const topLanguages = Object.entries(languages)
       .sort(([, a], [, b]) => b - a)
-      .slice(0, 5)
+      .slice(0, 4)
       .map(([name, count]) => ({ name, count }));
 
     // Get recently updated repos
@@ -163,19 +163,36 @@ export function Dashboard() {
 
         <Card className="bg-card/50 border-border/50 backdrop-blur-sm shadow-sm hover-elevate transition-all">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Top Language</CardTitle>
-            <div 
-              className="h-4 w-4 rounded-full" 
-              style={{ backgroundColor: getLanguageColor(stats.topLanguages[0]?.name) }}
-            />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Language Histogram</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground truncate" data-testid="stat-top-language">
-              {stats.topLanguages[0]?.name || "N/A"}
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Used in {stats.topLanguages[0]?.count || 0} repos
-            </p>
+            {stats.topLanguages.length > 0 ? (
+              <div className="space-y-2" data-testid="stat-top-language">
+                {stats.topLanguages.map((lang) => {
+                  const maxCount = stats.topLanguages[0]?.count || 1;
+                  const widthPercent = Math.max((lang.count / maxCount) * 100, 12);
+                  return (
+                    <div key={lang.name} className="space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="truncate text-foreground/90">{lang.name}</span>
+                        <span className="text-muted-foreground">{lang.count}</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-muted/60 overflow-hidden">
+                        <div
+                          className="h-full rounded-full"
+                          style={{
+                            width: `${widthPercent}%`,
+                            backgroundColor: getLanguageColor(lang.name),
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-sm text-muted-foreground italic">No language data.</div>
+            )}
           </CardContent>
         </Card>
       </div>
