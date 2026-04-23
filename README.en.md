@@ -1,6 +1,6 @@
 # GitHub Hub
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/eti032/Github-Hub&root-directory=artifacts%2Fgithub-dashboard)
+[![Deploy with Vercel](https://img.shields.io/badge/Deploy_with_Vercel-181717?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/new/clone?repository-url=https://github.com/eti032/Github-Hub&root-directory=artifacts%2Fgithub-dashboard) [![Use this template](https://img.shields.io/badge/Use_this_template-181717?style=for-the-badge&logo=github&logoColor=white)](../../generate)
 
 A self-hosted personal GitHub portal — a beautiful replacement for GitHub's default repo listing. Pin the public and private repos you currently care about on your home page, with built-in stats, a repo browser, repo detail pages, customizable links, and per-repo Markdown notes — deployable for free on GitHub Pages or as a static site on Vercel.
 
@@ -51,40 +51,25 @@ These show at the top of the repo detail page for one-click access. Link configu
 
 ## Quick Start — Deploy Your Own (5 minutes)
 
-You'll get your own copy at `https://<your-username>.github.io/<repo-name>/`.
+Choose one of the following deployment methods:
 
-### 1. Use this repo as a template
+### Vercel One-Click Deploy
 
-Click **[Use this template](../../generate)** at the top of the GitHub page → **Create a new repository**. Pick a name (e.g. `my-github-hub`) and make it **Public** (required for free GitHub Pages).
+- **Step 1.** Click the **Deploy with Vercel** button at the top of this page.
+- **Step 2.** Complete import and deployment in Vercel (the root directory is preconfigured as `artifacts/github-dashboard`).
+- **Step 3.** Open the deployed URL and continue from the Setup screen.
+- **Step 4.** Confirm the GitHub username you want to use.
+- **Step 5.** Create a token from the [GitHub Personal Access Token (classic) page](https://github.com/settings/tokens), with scopes: **`repo`**, **`user`**, **`gist`**.
+- **Step 6.** Go back to the Setup screen and enter your GitHub username and token.
 
-> Or fork / clone manually if you prefer.
+### GitHub Pages
 
-### 2. Enable GitHub Pages
-
-In your new repo:
-
-1. Go to **Settings → Pages**
-2. Under **Build and deployment → Source**, choose **GitHub Actions**
-
-### 3. Run the first deployment manually
-
-This workflow is manual-only by default, so after a Fork or "Use this template", it will not run automatically.
-
-Please go to **Settings → Pages** and set Source to **GitHub Actions**, then return to the **Actions** tab and click **Run workflow**.
-
-After a successful run (green ✅), your site should be live in about 1–2 minutes at:
-
-```
-https://<your-username>.github.io/<repo-name>/
-```
-
-### 4. Set it up
-
-1. Open your site.
-2. The Setup screen asks for a **GitHub Personal Access Token**.
-3. Create one at https://github.com/settings/tokens → **Generate new token (classic)**.
-4. Select scopes: **`repo`**, **`user`**, **`gist`**.
-5. Paste the token into the Setup screen. Done — your dashboard loads.
+- **Step 1.** Click **[Use this template](../../generate)** at the top of the GitHub page → **Create a new repository**. Pick a name (e.g. `my-github-hub`) and make it **Public** (required for free GitHub Pages).
+- **Step 2.** In the new repo, go to **Settings → Pages** and choose **GitHub Actions** under **Build and deployment → Source**.
+- **Step 3.** Return to the **Actions** tab, select **Deploy GitHub Dashboard to Pages** from the left sidebar, then click **Run workflow** on the right side of the workflow card.
+- **Step 4.** Wait for a successful run (green ✅, about 1–2 minutes), then open: `https://<your-username>.github.io/<repo-name>/`.
+- **Step 5.** Create a token from the [GitHub Personal Access Token (classic) page](https://github.com/settings/tokens), with scopes: **`repo`**, **`user`**, **`gist`**.
+- **Step 6.** Go back to the Setup screen and enter your GitHub username and token.
 
 The token is saved only in your browser's `localStorage`. Visitors of your site will see the same Setup screen and supply their own token; they cannot read yours.
 
