@@ -1,6 +1,8 @@
 # GitHub Hub
 
-A self-hosted personal GitHub portal — a beautiful replacement for GitHub's default repo listing. Build your own dashboard with stats, a repo browser, repo detail pages, customizable links, and per-repo Markdown notes — all running on your own GitHub Pages site for free.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/eti032/Github-Hub&root-directory=artifacts%2Fgithub-dashboard)
+
+A self-hosted personal GitHub portal — a beautiful replacement for GitHub's default repo listing. Pin the public and private repos you currently care about on your home page, with built-in stats, a repo browser, repo detail pages, customizable links, and per-repo Markdown notes — deployable for free on GitHub Pages or as a static site on Vercel.
 
 > **No backend. No database. No vendor lock-in.** Your token and preferences live in your browser's `localStorage`. Notes are stored as private Gists on your own GitHub account, so they sync across devices.
 
@@ -64,17 +66,13 @@ In your new repo:
 1. Go to **Settings → Pages**
 2. Under **Build and deployment → Source**, choose **GitHub Actions**
 
-### 3. Re-run the first deployment (**almost always required**)
+### 3. Run the first deployment manually
 
-When you create a repo from a template, GitHub immediately pushes the initial commit — and at that moment Pages isn't enabled yet, so **the first deployment will almost always fail** (red ❌, error like `Failed to create deployment (status: 404)`). This is expected. To fix it:
+This workflow is manual-only by default, so after a Fork or "Use this template", it will not run automatically.
 
-1. Go to the **Actions** tab
-2. Open the failed **Deploy GitHub Dashboard to Pages** run at the top
-3. Click **Re-run all jobs → Re-run jobs** in the top-right
+Please go to **Settings → Pages** and set Source to **GitHub Actions**, then return to the **Actions** tab and click **Run workflow**.
 
-This run will succeed (green ✅) in about 1–2 minutes.
-
-After this, every push to `main` deploys automatically — no manual steps needed. Your site is live at:
+After a successful run (green ✅), your site should be live in about 1–2 minutes at:
 
 ```
 https://<your-username>.github.io/<repo-name>/

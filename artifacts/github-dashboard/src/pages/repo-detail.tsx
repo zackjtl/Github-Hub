@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRoute } from "wouter";
+import { Link, useRoute } from "wouter";
 import { 
   useRepoDetail, 
   useRepoLanguages, 
@@ -95,7 +95,11 @@ export function RepoDetail() {
             <div>
               <div className="flex items-center gap-3 mb-3">
                 <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground break-all">
-                  <span className="text-muted-foreground/50 font-normal">{repo.owner.login}/</span>{repo.name}
+                  <Link href="/" className="text-muted-foreground/50 font-normal hover:text-primary transition-colors">
+                    {repo.owner.login}
+                  </Link>
+                  <span className="text-muted-foreground/50 font-normal">/</span>
+                  {repo.name}
                 </h1>
                 <Badge variant={repo.private ? "secondary" : "outline"} className="text-xs h-6 px-2 font-mono">
                   {repo.private ? <Lock className="w-3 h-3 mr-1.5"/> : <Globe className="w-3 h-3 mr-1.5"/>}
