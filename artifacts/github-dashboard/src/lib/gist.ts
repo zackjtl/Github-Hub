@@ -1,6 +1,8 @@
 const GIST_API = "https://api.github.com/gists";
 
 export const NOTES_GIST_PREFIX = "[gitdash:notes]";
+export const DASHBOARD_PREFS_GIST_DESC = "[gitdash:dashboard-prefs]";
+export const REPO_LINKS_GIST_DESC = "[gitdash:repo-links]";
 
 export interface GistFile {
   filename: string;
@@ -43,6 +45,22 @@ function buildDescription(owner: string, repo: string) {
   return `${NOTES_GIST_PREFIX} ${owner}/${repo}`;
 }
 
+/** Find existing gist by exact description. */
+export async function findGistByDescription(description: string, token: string): Promise<Gist | null> {
+  let page = 1;
+  while (true) {
+    const list = (await gistFetch(`?per_page=100&page=${page}`, token)) as Gist[];
+    if (!list || list.length === 0) return null;
+    const found = list.find((g) => g.description === description);
+    if (found) {
+      return (await gistFetch(`/${found.id}`, token)) as Gist;
+    }
+    if (list.length < 100) return null;
+    page++;
+    if (page > 30) return null;
+  }
+}
+
 /** Find existing notes gist for this repo by scanning user's gists. */
 export async function findNotesGist(owner: string, repo: string, token: string): Promise<Gist | null> {
   const target = buildDescription(owner, repo);
@@ -77,6 +95,22 @@ export async function createNotesGist(
       description: buildDescription(owner, repo),
       public: false,
       files: { [initialFile.filename]: { content: initialFile.content } },
+    }),
+  })) as Gist;
+}
+
+export async function createPrivateJsonGist(
+  description: string,
+  filename: string,
+  content: string,
+  token: string,
+): Promise<Gist> {
+  return (await gistFetch("", token, {
+    method: "POST",
+    body: JSON.stringify({
+      description,
+      public: false,
+      files: { [filename]: { content } },
     }),
   })) as Gist;
 }
