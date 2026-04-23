@@ -140,6 +140,9 @@ Yes. Add a `CNAME` file under `artifacts/github-dashboard/public/` with your dom
 **Where are notes stored?**
 As private Gists on your own account, one per repo. The dashboard finds them by scanning your Gists for the marker `[gitdash:notes] owner/repo` in the description.
 
+**How should I write README image links for the repo page?**
+Use **absolute image URLs** whenever possible (for example, `https://raw.githubusercontent.com/...` or any fully qualified public URL). Relative paths may not render correctly across different deployment environments.
+
 ## License
 
 MIT — do whatever you want, no warranty.

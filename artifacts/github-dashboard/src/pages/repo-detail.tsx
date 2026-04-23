@@ -24,24 +24,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { RepoLinks } from "@/components/repo-links";
 
-function isAbsoluteUrl(url: string) {
-  return /^(?:[a-z]+:)?\/\//i.test(url) || url.startsWith("mailto:") || url.startsWith("#");
-}
-
-function normalizePath(pathname: string) {
-  const parts = pathname.split("/");
-  const stack: string[] = [];
-  for (const part of parts) {
-    if (!part || part === ".") continue;
-    if (part === "..") {
-      stack.pop();
-      continue;
-    }
-    stack.push(part);
-  }
-  return stack.join("/");
-}
-
 export function RepoDetail() {
   const [, params] = useRoute("/repo/:owner/:repo");
   const owner = params?.owner || "";
@@ -95,20 +77,6 @@ export function RepoDetail() {
         }))
         .sort((a, b) => b.bytes - a.bytes)
     : [];
-
-  const readmeDir = readme?.path?.includes("/") ? readme.path.slice(0, readme.path.lastIndexOf("/")) : "";
-  const branch = repo.default_branch || "main";
-  const githubBlobBase = `https://github.com/${owner}/${repoName}/blob/${branch}`;
-  const rawBase = `https://raw.githubusercontent.com/${owner}/${repoName}/${branch}`;
-
-  const toAbsoluteReadmeUrl = (url: string, isImage: boolean) => {
-    if (isAbsoluteUrl(url)) return url;
-    const relPath = url.startsWith("/")
-      ? normalizePath(url.slice(1))
-      : normalizePath(readmeDir ? `${readmeDir}/${url}` : url);
-    if (!relPath) return url;
-    return isImage ? `${rawBase}/${relPath}` : `${githubBlobBase}/${relPath}`;
-  };
 
   return (
     <div className="space-y-8 pb-10 animate-in fade-in duration-500" data-testid="page-repo-detail">
@@ -208,12 +176,7 @@ export function RepoDetail() {
                       prose-img:inline-block prose-img:align-middle prose-img:my-0
                       prose-img:rounded-lg prose-img:border prose-img:border-border/20
                       prose-pre:bg-muted/50 prose-pre:border prose-pre:border-border/50">
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        urlTransform={(url, _key, node) =>
-                          toAbsoluteReadmeUrl(url, node?.tagName === "img")
-                        }
-                      >
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
                         {readme.content}
                       </ReactMarkdown>
                     </article>
