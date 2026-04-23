@@ -51,7 +51,7 @@ export function RepoDetail() {
   const { data: languages, isLoading: isLoadingLangs } = useRepoLanguages(owner, repoName);
   const { data: contributors, isLoading: isLoadingContribs } = useRepoContributors(owner, repoName);
   const { data: commits, isLoading: isLoadingCommits } = useRepoCommits(owner, repoName);
-  const { data: readme, isLoading: isLoadingReadme } = useRepoReadme(owner, repoName);
+  const { data: readme, isLoading: isLoadingReadme, error: readmeError } = useRepoReadme(owner, repoName);
 
   if (repoError) {
     return (
@@ -217,6 +217,10 @@ export function RepoDetail() {
                         {readme.content}
                       </ReactMarkdown>
                     </article>
+                  ) : readmeError ? (
+                    <div className="text-center py-12 text-muted-foreground italic">
+                      Failed to load README content.
+                    </div>
                   ) : (
                     <div className="text-center py-12 text-muted-foreground italic">
                       No README.md found in this repository.

@@ -3,6 +3,12 @@ import { useGitHub } from "./use-github";
 
 const GITHUB_API = "https://api.github.com";
 
+function decodeBase64Utf8(value: string) {
+  const binary = atob(value.replace(/\n/g, ""));
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
 async function fetchGitHub(endpoint: string, token: string) {
   const res = await fetch(`${GITHUB_API}${endpoint}`, {
     headers: {
@@ -104,26 +110,47 @@ export function useRepoReadme(owner: string, repo: string) {
   return useQuery({
     queryKey: ["repoReadme", owner, repo],
     queryFn: async () => {
-      const res = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/readme`, {
-        headers: {
-          Authorization: `token ${config!.token}`,
-          Accept: "application/vnd.github+json",
-        },
-      });
-      if (!res.ok) {
-        if (res.status === 404) return null;
-        throw new Error(`GitHub API error: ${res.statusText}`);
-      }
-      const data = await res.json();
-      const content =
-        data?.encoding === "base64" && typeof data?.content === "string"
-          ? atob(data.content.replace(/\n/g, ""))
-          : "";
-
-      return {
-        content,
-        path: data?.path || "README.md",
+      const headers = {
+        Authorization: `token ${config!.token}`,
+        Accept: "application/vnd.github+json",
       };
+
+      const parseReadmeResponse = async (res: Response) => {
+        if (!res.ok) return null;
+        const data = await res.json();
+        const content =
+          data?.encoding === "base64" && typeof data?.content === "string"
+            ? decodeBase64Utf8(data.content)
+            : "";
+        return {
+          content,
+          path: data?.path || "README.md",
+        };
+      };
+
+      const readmeRes = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/readme`, { headers });
+      if (readmeRes.ok) {
+        return parseReadmeResponse(readmeRes);
+      }
+
+      // Fallback for repositories where /readme is unavailable but common filenames exist.
+      if (readmeRes.status === 404) {
+        const commonNames = [
+          "README.md",
+          "README.MD",
+          "readme.md",
+          "README",
+          "readme",
+        ];
+        for (const file of commonNames) {
+          const fileRes = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/contents/${file}`, { headers });
+          const parsed = await parseReadmeResponse(fileRes);
+          if (parsed) return parsed;
+        }
+        return null;
+      }
+
+      throw new Error(`GitHub API error: ${readmeRes.statusText}`);
     },
     enabled: !!config?.token && !!owner && !!repo,
   });
