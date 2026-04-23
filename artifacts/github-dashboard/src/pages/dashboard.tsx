@@ -10,7 +10,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useDashboardPrefs } from "@/hooks/use-dashboard-prefs";
 import { DashboardReposConfig } from "@/components/dashboard-repos-config";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 export function Dashboard() {
   const { data: profile, isLoading: isProfileLoading, error: profileError } = useUserProfile();
@@ -38,14 +37,10 @@ export function Dashboard() {
       }
     });
 
-    const sortedLanguages = Object.entries(languages)
+    const topLanguages = Object.entries(languages)
       .sort(([, a], [, b]) => b - a)
+      .slice(0, 4)
       .map(([name, count]) => ({ name, count }));
-    const topLanguages = sortedLanguages.slice(0, 4);
-    const othersCount = sortedLanguages.slice(4).reduce((sum, lang) => sum + lang.count, 0);
-    const languageDistribution = othersCount > 0
-      ? [...topLanguages, { name: "Others", count: othersCount }]
-      : topLanguages;
 
     // Get recently updated repos
     const recentRepos = [...repos]
@@ -59,7 +54,6 @@ export function Dashboard() {
       privateCount,
       publicCount,
       topLanguages,
-      languageDistribution,
       recentRepos,
     };
   }, [repos]);
@@ -169,60 +163,32 @@ export function Dashboard() {
 
         <Card className="bg-card/50 border-border/50 backdrop-blur-sm shadow-sm hover-elevate transition-all">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Language Distribution</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Language Histogram</CardTitle>
           </CardHeader>
           <CardContent>
-            {stats.languageDistribution.length > 0 ? (
-              <div className="space-y-3" data-testid="stat-top-language">
-                <div className="h-36">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={stats.languageDistribution}
-                        dataKey="count"
-                        nameKey="name"
-                        innerRadius={32}
-                        outerRadius={56}
-                        paddingAngle={2}
-                        stroke="none"
-                      >
-                        {stats.languageDistribution.map((entry) => (
-                          <Cell
-                            key={entry.name}
-                            fill={entry.name === "Others" ? "hsl(var(--muted-foreground))" : getLanguageColor(entry.name)}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip
-                        formatter={(value: number, name: string) => [`${value} repos`, name]}
-                        contentStyle={{
-                          borderRadius: 8,
-                          border: "1px solid hsl(var(--border))",
-                          background: "hsl(var(--background))",
-                        }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="grid gap-1">
-                  {stats.languageDistribution.map((lang) => (
-                    <div key={lang.name} className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-1.5 min-w-0">
-                        <span
-                          className="h-2.5 w-2.5 rounded-full shrink-0"
+            {stats.topLanguages.length > 0 ? (
+              <div className="space-y-2" data-testid="stat-top-language">
+                {stats.topLanguages.map((lang) => {
+                  const maxCount = stats.topLanguages[0]?.count || 1;
+                  const widthPercent = Math.max((lang.count / maxCount) * 100, 12);
+                  return (
+                    <div key={lang.name} className="space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="truncate text-foreground/90">{lang.name}</span>
+                        <span className="text-muted-foreground">{lang.count}</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-muted/60 overflow-hidden">
+                        <div
+                          className="h-full rounded-full"
                           style={{
-                            backgroundColor:
-                              lang.name === "Others"
-                                ? "hsl(var(--muted-foreground))"
-                                : getLanguageColor(lang.name),
+                            width: `${widthPercent}%`,
+                            backgroundColor: getLanguageColor(lang.name),
                           }}
                         />
-                        <span className="truncate">{lang.name}</span>
                       </div>
-                      <span className="text-muted-foreground">{lang.count}</span>
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
             ) : (
               <div className="text-sm text-muted-foreground italic">No language data.</div>
