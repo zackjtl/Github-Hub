@@ -44,6 +44,20 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (
+          typeof warning.message === "string" &&
+          warning.message.includes(
+            "Error when using sourcemap for reporting an error",
+          )
+        ) {
+          return;
+        }
+        warn(warning);
+      },
+    },
   },
   server: {
     port,
