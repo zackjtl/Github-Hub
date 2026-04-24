@@ -38,6 +38,10 @@ GitHub 上的 repo 通常只是真正成果的「源頭」 — 實際的網站�
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
 ![Jira](https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white)
+![Alibaba Cloud](https://img.shields.io/badge/Alibaba_Cloud-FF6A00?style=for-the-badge&logo=alibabacloud&logoColor=white)
+![Tencent Cloud](https://img.shields.io/badge/Tencent_Cloud-006EFF?style=for-the-badge)
+![Huawei Cloud](https://img.shields.io/badge/Huawei_Cloud-C7000B?style=for-the-badge&logo=huawei&logoColor=white)
+![Baidu AI Cloud](https://img.shields.io/badge/Baidu_AI_Cloud-2932E1?style=for-the-badge)
 
 沒列到的平台也能新增，會自動套上通用 icon。
 
