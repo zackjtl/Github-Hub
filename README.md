@@ -8,7 +8,7 @@
 
 繁體中文 ｜ [English](./README.en.md)
 
-![Dashboard](https://raw.githubusercontent.com/zackjtl/Github-Hub/main/Docs/dashboard.png))
+![Dashboard](https://raw.githubusercontent.com/zackjtl/Github-Hub/main/Docs/mainpage.png))
 
 ## 功能特色
 
