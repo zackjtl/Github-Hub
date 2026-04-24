@@ -27,9 +27,10 @@ import {
   SiLinear,
   SiSlack,
   SiDiscord,
+  SiPerplexity,
 } from "react-icons/si";
 import { VscAzure } from "react-icons/vsc";
-import { Globe, Cloud } from "lucide-react";
+import { Globe, Cloud, Bot, Server, Database, LineChart, FileText } from "lucide-react";
 
 export type PlatformCategory = "hosting" | "database" | "service" | "other";
 
@@ -76,6 +77,31 @@ export const PLATFORMS: Platform[] = [
   { id: "linear", name: "Linear", category: "service", icon: SiLinear, color: "#5E6AD2" },
   { id: "slack", name: "Slack", category: "service", icon: SiSlack, color: "#4A154B" },
   { id: "discord", name: "Discord", category: "service", icon: SiDiscord, color: "#5865F2" },
+  { id: "perplexity", name: "Perplexity", category: "service", icon: SiPerplexity, color: "#19C37D" },
+  { id: "cursor", name: "Cursor", category: "service", icon: Bot as unknown as IconType, color: "#6E56CF" },
+  { id: "openai", name: "OpenAI", category: "service", icon: Bot as unknown as IconType, color: "#10A37F" },
+  { id: "anthropic", name: "Anthropic", category: "service", icon: Bot as unknown as IconType, color: "#D4A373" },
+  { id: "huggingface", name: "Hugging Face", category: "service", icon: Bot as unknown as IconType, color: "#FFCC4D" },
+  { id: "dify", name: "Dify", category: "service", icon: Bot as unknown as IconType, color: "#5B8FF9" },
+  { id: "coze", name: "Coze", category: "service", icon: Bot as unknown as IconType, color: "#7C3AED" },
+  { id: "gitee", name: "Gitee", category: "service", icon: Globe as unknown as IconType, color: "#C71D23" },
+  { id: "gitea", name: "Gitea", category: "service", icon: Globe as unknown as IconType, color: "#609926" },
+  { id: "jenkins", name: "Jenkins", category: "service", icon: Server as unknown as IconType, color: "#D24939" },
+  { id: "sentry", name: "Sentry", category: "service", icon: LineChart as unknown as IconType, color: "#362D59" },
+  { id: "datadog", name: "Datadog", category: "service", icon: LineChart as unknown as IconType, color: "#632CA6" },
+  { id: "feishu-docs", name: "Feishu Docs", category: "service", icon: FileText as unknown as IconType, color: "#3370FF" },
+  { id: "yuque", name: "Yuque", category: "service", icon: FileText as unknown as IconType, color: "#25B864" },
+
+  // China Mainland Cloud
+  { id: "aliyun", name: "Alibaba Cloud", category: "hosting", icon: Cloud as unknown as IconType, color: "#FF6A00" },
+  { id: "tencent-cloud", name: "Tencent Cloud", category: "hosting", icon: Cloud as unknown as IconType, color: "#006EFF" },
+  { id: "huawei-cloud", name: "Huawei Cloud", category: "hosting", icon: Cloud as unknown as IconType, color: "#C7000B" },
+  { id: "baidu-cloud", name: "Baidu AI Cloud", category: "hosting", icon: Cloud as unknown as IconType, color: "#2932E1" },
+  { id: "volcengine", name: "Volcengine", category: "hosting", icon: Cloud as unknown as IconType, color: "#1F6BFF" },
+
+  // More Databases
+  { id: "neon", name: "Neon", category: "database", icon: Database as unknown as IconType, color: "#00E699" },
+  { id: "tidb", name: "TiDB Cloud", category: "database", icon: Database as unknown as IconType, color: "#E4393C" },
 
   // Other
   { id: "custom", name: "Custom / Other", category: "other", icon: Globe as unknown as IconType, color: "#94a3b8" },
